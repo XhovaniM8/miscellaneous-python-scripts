@@ -1,34 +1,51 @@
 from PIL import Image
 import os
 
-# Set the maximum width and height of the optimized images
-max_size = (500, 750)
+# Set the desired maximum dimensions for the images
+MAX_WIDTH = 1000
+MAX_HEIGHT = 1000
 
-# Set the quality level for the optimized images
-quality = 80
+# Set the compression quality for JPEG images
+JPEG_QUALITY = 90
 
-# Set the directory where the original images are located
-input_dir = "/Users/rougeboy/Documents/repos/Portfolio/jpeg-optimized"
+# Set the compression quality for WebP images
+WEBP_QUALITY = 90
+
+# Set the directory where the images are located
+input_dir = "/Users/rougeboy/Documents/repos/rougeboy.github.io/photography"
 
 # Set the directory where the optimized images will be saved
-output_dir = "/Users/rougeboy/Documents/repos/Portfolio/jpeg-optimized"
+output_dir = "/Users/rougeboy/Documents/repos/rougeboy.github.io/test-folder"
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
-# Loop through all the files in the input directory
+# Loop through each image file in the input directory
 for filename in os.listdir(input_dir):
-    if filename.endswith(".jpg") or filename.endswith(".jpeg"):
-        # Open the original image
+    if filename.endswith(".jpg") or filename.endswith(".jpeg") or filename.endswith(".png") or filename.endswith(".JPG"):
+        # Open the image file
         with Image.open(os.path.join(input_dir, filename)) as img:
-            # Resize the image to fit within the maximum size
-            img.thumbnail(max_size, Image.ANTIALIAS)
-            # Save the optimized image to the output directory
-            img.save(os.path.join(output_dir, filename), optimize=True, quality=quality)
-
-# Print the file name and the percentage of space saved
-before_size = os.path.getsize(os.path.join(input_dir, filename))
-after_size = os.path.getsize(os.path.join(output_dir, filename))
-saved_percent = round((before_size - after_size) / before_size * 100, 2)
-print(f"{filename} optimized ({saved_percent}% space saved)")
+            # Calculate the new dimensions for the image
+            width, height = img.size
+            if width > MAX_WIDTH:
+                ratio = MAX_WIDTH / width
+                height = int(height * ratio)
+                width = MAX_WIDTH
+            if height > MAX_HEIGHT:
+                ratio = MAX_HEIGHT / height
+                width = int(width * ratio)
+                height = MAX_HEIGHT
+            
+            # Resize the image while maintaining aspect ratio
+            img.thumbnail((width, height), resample=Image.LANCZOS)
+            
+            # Save the optimized JPEG image
+            output_filename = os.path.splitext(filename)[0] + ".jpg"
+            output_path = os.path.join(output_dir, output_filename)
+            img.save(output_path, optimize=True, quality=JPEG_QUALITY, progressive=True)
+            
+            # Save the optimized WebP image
+            output_filename = os.path.splitext(filename)[0] + ".webp"
+            output_path = os.path.join(output_dir, output_filename)
+            img.save(output_path, optimize=True, quality=WEBP_QUALITY)
