@@ -18,7 +18,7 @@ In summary, this code renames all JPEG files in a folder by removing a specific 
 
 import os
 
-folder_path = "/Users/rougeboy/Documents/repos/Portfolio/jpeg-optimized"  # replace with your folder path
+folder_path = ""  # replace with your folder path
 word_to_remove = "jpeg-optimizer_"
 
 for filename in os.listdir(folder_path):
