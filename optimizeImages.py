@@ -12,10 +12,10 @@ JPEG_QUALITY = 90
 WEBP_QUALITY = 90
 
 # Set the directory where the images are located
-input_dir = "/Users/rougeboy/Documents/repos/rougeboy.github.io/photography"
+input_dir = ""
 
 # Set the directory where the optimized images will be saved
-output_dir = "/Users/rougeboy/Documents/repos/rougeboy.github.io/test-folder"
+output_dir = ""
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_dir):
@@ -23,7 +23,7 @@ if not os.path.exists(output_dir):
 
 # Loop through each image file in the input directory
 for filename in os.listdir(input_dir):
-    if filename.endswith(".jpg") or filename.endswith(".jpeg") or filename.endswith(".png") or filename.endswith(".JPG"):
+    if filename.endswith(".jpg") or filename.endswith(".jpeg") or filename.endswith(".png") or filename.endswith(".JPG"): 
         # Open the image file
         with Image.open(os.path.join(input_dir, filename)) as img:
             # Calculate the new dimensions for the image
