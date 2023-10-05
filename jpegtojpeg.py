@@ -16,7 +16,7 @@ If you need to modify the contents of the file, you will need to use a different
 """
 import os
 
-folder_path = "/Users/rougeboy/Documents/repos/rougeboy.github.io/photography"  # replace with your folder path
+folder_path = ""  # replace with your folder path
 
 for filename in os.listdir(folder_path):
     if filename.endswith(".JPG"):
