@@ -1,3 +1,16 @@
+"""
+$ python manual_tracker.py
+Enter times in 24-hour format (HH:MM)
+Date (YYYY-MM-DD): 2025-06-25
+Start AM: 08:45
+Start Lunch: 12:30
+End Lunch: 13:15
+End PM: 17:30
+Logged: 7.50 hours
+Total this week (including today): 15.00 / 44.00
+Entry saved.
+"""
+
 import csv
 import os
 from datetime import datetime, timedelta
